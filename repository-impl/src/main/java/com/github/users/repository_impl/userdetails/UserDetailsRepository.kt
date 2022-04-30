@@ -8,8 +8,9 @@ import com.github.users.repository.userdetails.dto.UserDetailsDto
 import com.github.users.repository_impl.userdetails.mappers.mapToDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class UserDetailsRepository(
+class UserDetailsRepository @Inject constructor(
     private val api: UserApi,
     private val cache: ICacheDataSource
 ) : IUserDetailsRepository {

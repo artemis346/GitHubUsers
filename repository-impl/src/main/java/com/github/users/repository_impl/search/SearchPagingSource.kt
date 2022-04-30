@@ -35,7 +35,7 @@ class SearchPagingSource constructor(
             LoadResult.Page(
                 data = list,
                 prevKey = null,
-                nextKey = if (response.incompleteResults) {
+                nextKey = if (!response.incompleteResults) {
                     loadPage + 1
                 } else {
                     null

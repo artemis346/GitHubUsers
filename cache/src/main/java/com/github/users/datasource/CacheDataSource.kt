@@ -1,8 +1,9 @@
 package com.github.users.datasource
 
 import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
 
-class CacheDataSource: ICacheDataSource {
+class CacheDataSource @Inject constructor() : ICacheDataSource {
 
     private val memoryCache = ConcurrentHashMap<String, Any>()
 

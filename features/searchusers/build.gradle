@@ -33,4 +33,5 @@ dependencies {
     implementation coreLibs.values()
     implementation uiLibs.values()
     implementation navigation.values()
+    implementation paging.values()
 }

@@ -12,7 +12,8 @@ fun SearchResponse.mapToDomain() : List<SearchItemDto> {
         SearchItemDto(
             id = item.id,
             login = item.login,
-            avatarUrl = item.avatarUrl
+            avatarUrl = item.avatarUrl,
+            score = item.score
         )
     }
 }

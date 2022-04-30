@@ -20,7 +20,8 @@ data class Items(
     val login: String,
 
     @SerializedName("avatar_url")
-    val avatarUrl: String
+    val avatarUrl: String,
 
-
+    @SerializedName("score")
+    val score: Float
 )

@@ -9,8 +9,9 @@ import com.github.users.network.api.search.SearchApi
 import com.github.users.repository.search.ISearchRepository
 import com.github.users.repository.search.dto.SearchItemDto
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SearchRepository(
+class SearchRepository @Inject constructor(
     private val api: SearchApi,
     private val cache: ICacheDataSource
 ) : ISearchRepository {

@@ -1,7 +1,7 @@
 ext {
     // Build versions
     ktxVersion = '1.7.0'
-    kotlinPlugin = '1.6.20'
+    kotlinPlugin = '1.6.10'
     gradlePluginVersion = '7.0.4'
     jvmTargetVersion = '1.8'
 
@@ -14,10 +14,10 @@ ext {
     // Google Libs version
     appCompatVersion = '1.4.1'
     material = '1.5.0'
-    composeVersion = '1.2.0-alpha08'
+    composeVersion = '1.1.1'
+    composeConstraint = '1.0.0'
     navigation = '2.4.2'
     navHilt = '1.0.0'
-    paging = '3.1.1'
 
     //Paging
     composePaging = '1.0.0-alpha14'
@@ -73,6 +73,7 @@ ext {
             composeUi        : "androidx.compose.ui:ui:${composeVersion}",
             composeFoundation : "androidx.compose.foundation:foundation:${composeVersion}",
             composeMaterial  : "androidx.compose.material:material:${composeVersion}",
+            composeConstraintlayout : "androidx.constraintlayout:constraintlayout-compose:${composeConstraint}",
             runtime          : "androidx.compose.runtime:runtime:${composeVersion}",
             compiler          : "androidx.compose.compiler:compiler:1.0.0-alpha10",
             activity          : "androidx.activity:activity-compose:1.3.1",

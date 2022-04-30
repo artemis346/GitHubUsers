@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mapsearch"
+        applicationId "com.github.user"
         versionCode 1
         versionName "1.0"
     }
