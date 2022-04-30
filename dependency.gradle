@@ -19,6 +19,10 @@ ext {
     navHilt = '1.0.0'
     paging = '3.1.1'
 
+    //Paging
+    composePaging = '1.0.0-alpha14'
+    paging = '3.1.1'
+
     //DI libs
     daggerVersion = '2.41'
     hilt = '2.41'
@@ -97,5 +101,10 @@ ext {
     navigation = [
             nav               : "androidx.navigation:navigation-compose:${navigation}",
             navHilt           : "androidx.hilt:hilt-navigation-compose:${navHilt}"
+    ]
+
+    paging = [
+            pagingRuntime     : "androidx.paging:paging-runtime:${paging}",
+            paging            : "androidx.paging:paging-compose:${composePaging}"
     ]
 }

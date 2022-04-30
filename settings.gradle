@@ -10,6 +10,7 @@ rootProject.name = "githubusers"
 include ':app'
 include ':network'
 include ':uikit'
+include ':cache'
 include ':repository'
 include ':repository-impl'
 include ':utils'

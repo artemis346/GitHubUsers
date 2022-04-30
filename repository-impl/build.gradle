@@ -10,6 +10,8 @@ android androidConfiguration
 dependencies {
     implementation project(path: ':network')
     implementation project(path: ':repository')
+    implementation project(path: ':utils')
+    implementation project(path: ':cache')
 }
 
 dependencies {
@@ -17,5 +19,6 @@ dependencies {
     implementation diLibs.hilt
     implementation coreLibs.ktxCore
     implementation coroutine.coroutine
+    implementation paging.values()
     testImplementation test.values()
 }
