@@ -1,0 +1,18 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "githubusers"
+include ':app'
+include ':network'
+include ':uikit'
+include ':repository'
+include ':repository-impl'
+include ':utils'
+include ':navigation'
+include ':features:searchusers'
+include ':features:userdetails'
