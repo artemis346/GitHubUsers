@@ -4,6 +4,8 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -15,25 +17,37 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 import com.github.users.uikit.utils.emptyField
 import com.github.users.uikit.R
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchTextField(
     @StringRes placeholder: Int,
-    onValueChange: (String) -> Unit
+    onValueChange: ((String) -> Unit)? = null,
+    onSearchClicked: ((String) -> Unit)? = null
 ) {
     var message by remember {
         mutableStateOf(emptyField)
     }
 
-    var showClearIcon by remember {
+    var showTrailingIcons by remember {
         mutableStateOf(false)
+    }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    var startSearch = {
+
     }
 
     Row(modifier = Modifier.fillMaxWidth()) {
@@ -54,39 +68,58 @@ fun SearchTextField(
                     color = colorResource(R.color.white),
                 )
             },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_search_small_white),
-                    tint = colorResource(
-                        id = R.color.white,
-                    ),
-                    contentDescription = "search"
-                )
-            },
             trailingIcon = {
-                if (showClearIcon) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_clear_white),
-                        tint = colorResource(
-                            id = R.color.white,
-                        ),
-                        contentDescription = "search",
-                        modifier = Modifier.clickable {
-                            message = emptyField
-                        }
-                    )
+                if (showTrailingIcons) {
+                    Row(
+                        modifier = Modifier.padding(8.dp, 0.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_clear_white),
+                            tint = colorResource(
+                                id = R.color.white,
+                            ),
+                            contentDescription = "search",
+                            modifier = Modifier
+                                .padding(8.dp, 0.dp)
+                                .clickable {
+                                    message = emptyField
+                                }
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_search_small_white),
+                            tint = colorResource(
+                                id = R.color.white,
+                            ),
+                            contentDescription = "search",
+                            modifier = Modifier
+                                .padding(8.dp, 0.dp)
+                                .clickable {
+                                    keyboardController?.hide()
+                                    onSearchClicked?.let { it(message.text) }
+                                }
+                        )
+                    }
                 }
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            onValueChange = {
-                if (it.text != message.text) {
-                    message = it
-                    onValueChange(message.text)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Search
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    keyboardController?.hide()
+                    onSearchClicked?.let { it(message.text) }
                 }
-                showClearIcon = it.text.isNotEmpty()
+            ),
+            onValueChange = { textFieldValue ->
+                if (textFieldValue.text != message.text) {
+                    message = textFieldValue
+                    onValueChange?.let { onValueChange -> onValueChange(message.text) }
+                }
+                showTrailingIcons = textFieldValue.text.isNotEmpty()
             },
             singleLine = true
         )

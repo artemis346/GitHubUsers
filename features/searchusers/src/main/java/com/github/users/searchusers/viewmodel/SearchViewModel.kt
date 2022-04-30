@@ -27,36 +27,8 @@ class SearchViewModel @Inject constructor(
         MutableStateFlow<SearchUiState>(SearchUiState.Initial)
     val uiState: StateFlow<SearchUiState> = stateData
 
-    @FlowPreview
-    fun startSearchWithDelay(query: String) {
-        viewModelScope.launch {
-            flowOf(query)
-                .onStart {
-                    delay(SEARCH_DELAY)
-                }
-                .dropWhile {
-                    it.length < MIN_QUERY_LENGTH
-                }
-                .debounce(SEARCH_DEBOUNCE)
-                .collect { query ->
-                    repository.getUsersByQuery(query)
-                        .onStart {
-                            stateData.value = SearchUiState.Loading
-                            delay(SEARCH_DELAY*2)
-                        }
-                        .map { list ->
-                            list.mapPagingDomainToItem()
-                        }
-                        .catch { ex ->
-                            ex.printStackTrace()
-                            stateData.value = SearchUiState.Error
-                        }
-                        .collect { pagingData ->
-                            stateData.value = SearchUiState.Success(flowOf(pagingData))
-                        }
-                }
-        }
-    }
+    private var query: String = ""
+
 
     fun selectItem(userName: String) {
         viewModelScope.launch {
@@ -66,6 +38,37 @@ class SearchViewModel @Inject constructor(
             }.flowOn(Dispatchers.IO)
                 .collect {
                     stateData.value = SearchUiState.ItemSelected
+                }
+        }
+    }
+
+    fun startSearch(query: String) {
+        this.query = query
+        startSearch()
+    }
+
+    fun startSearch() {
+        viewModelScope.launch {
+            flowOf(query)
+                .dropWhile {
+                    it.length < MIN_QUERY_LENGTH
+                }
+                .collect { query ->
+                    repository.getUsersByQuery(query)
+                        .onStart {
+                            stateData.value = SearchUiState.Loading
+                            delay(SEARCH_DELAY * 2)
+                        }
+                        .map { list ->
+                            list.mapPagingDomainToItem()
+                        }
+                        .catch { ex ->
+                            ex.printStackTrace()
+                            stateData.value = SearchUiState.Error(ErrorState.ERROR_LOADING)
+                        }
+                        .collect { pagingData ->
+                            stateData.value = SearchUiState.Success(flowOf(pagingData))
+                        }
                 }
         }
     }

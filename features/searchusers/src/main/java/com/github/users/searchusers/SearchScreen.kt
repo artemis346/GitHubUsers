@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -19,11 +20,13 @@ import com.github.users.searchusers.dto.UserItem
 import com.github.users.searchusers.viewmodel.SearchUiState
 import com.github.users.searchusers.viewmodel.SearchViewModel
 import com.github.users.uikit.emptystate.EmptyState
+import com.github.users.uikit.error.ErrorView
 import com.github.users.uikit.items.ItemList
 import com.github.users.uikit.shimmer.ListShimmer
 import com.github.users.uikit.textfield.SearchTextField
 import kotlinx.coroutines.flow.Flow
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchScreen(navController: NavHostController) {
     val vm: SearchViewModel = hiltViewModel()
@@ -34,6 +37,7 @@ fun SearchScreen(navController: NavHostController) {
     )
 }
 
+@ExperimentalComposeUiApi
 @Composable
 fun ScreenHeader(vm: SearchViewModel) {
     Surface(
@@ -46,9 +50,10 @@ fun ScreenHeader(vm: SearchViewModel) {
         Row(modifier = Modifier.fillMaxWidth()) {
             SearchTextField(
                 placeholder = R.string.search_placeholder,
-                onValueChange = {
-                    vm.startSearchWithDelay(it)
-                })
+                onSearchClicked = {
+                    vm.startSearch(it)
+                }
+            )
         }
     }
 }
@@ -70,6 +75,9 @@ fun ScreenContent(vm: SearchViewModel, navController: NavHostController) {
             EmptyState(stringResource(R.string.start_new_search), R.drawable.ic_search_large)
         }
         is SearchUiState.Error -> {
+            ErrorView(stringResource(state.error.message)) {
+                vm.startSearch()
+            }
         }
     }
 }
