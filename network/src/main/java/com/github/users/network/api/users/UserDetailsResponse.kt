@@ -10,6 +10,15 @@ data class UserDetailsResponse(
     @SerializedName("login")
     val login: String,
 
+    @SerializedName("name")
+    val name: String?,
+
+    @SerializedName("email")
+    val email: String?,
+
+    @SerializedName("location")
+    val location: String?,
+
     @SerializedName("avatar_url")
     val avatarUrl: String,
 
@@ -23,7 +32,7 @@ data class UserDetailsResponse(
     val following: Int,
 
     @SerializedName("company")
-    val companyName: String,
+    val companyName: String?,
 
     @SerializedName("created_at")
     val createAt: String

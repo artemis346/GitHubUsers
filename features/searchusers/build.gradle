@@ -31,7 +31,6 @@ dependencies {
     implementation diLibs.hilt
     implementation uiLibs.values()
     implementation coreLibs.values()
-    implementation uiLibs.values()
     implementation navigation.values()
     implementation paging.values()
 }

@@ -13,8 +13,9 @@ class MainHostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
             Scaffold {
-                NavigationComponent(rememberNavController())
+                NavigationComponent(navController)
             }
         }
     }

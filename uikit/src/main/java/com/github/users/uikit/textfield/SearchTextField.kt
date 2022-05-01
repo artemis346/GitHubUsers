@@ -22,6 +22,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -29,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.github.users.uikit.utils.emptyField
 import com.github.users.uikit.R
 
-@ExperimentalComposeUiApi
+
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchTextField(
     @StringRes placeholder: Int,
@@ -46,10 +48,6 @@ fun SearchTextField(
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    var startSearch = {
-
-    }
-
     Row(modifier = Modifier.fillMaxWidth()) {
         val focusRequester = remember { FocusRequester() }
         LaunchedEffect(Unit) {
@@ -59,13 +57,17 @@ fun SearchTextField(
         TextField(
             value = message,
             colors = TextFieldDefaults.textFieldColors(
-                textColor = colorResource(R.color.white),
-                cursorColor = colorResource(R.color.white)
+                textColor = colorResource(R.color.black),
+                cursorColor = colorResource(R.color.black),
+                backgroundColor = colorResource(id = R.color.white),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
             ),
             placeholder = {
                 Text(
                     text = stringResource(id = placeholder),
-                    color = colorResource(R.color.white),
+                    color = colorResource(R.color.black),
                 )
             },
             trailingIcon = {
@@ -76,9 +78,9 @@ fun SearchTextField(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_clear_white),
                             tint = colorResource(
-                                id = R.color.white,
+                                id = R.color.black,
                             ),
-                            contentDescription = "search",
+                            contentDescription = "clear text",
                             modifier = Modifier
                                 .padding(8.dp, 0.dp)
                                 .clickable {
@@ -88,9 +90,9 @@ fun SearchTextField(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search_small_white),
                             tint = colorResource(
-                                id = R.color.white,
+                                id = R.color.black,
                             ),
-                            contentDescription = "search",
+                            contentDescription = "start search",
                             modifier = Modifier
                                 .padding(8.dp, 0.dp)
                                 .clickable {

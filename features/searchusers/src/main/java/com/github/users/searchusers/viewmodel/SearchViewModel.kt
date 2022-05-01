@@ -1,7 +1,9 @@
 package com.github.users.searchusers.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.github.users.repository.search.ISearchRepository
 import com.github.users.searchusers.mapper.mapPagingDomainToItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,19 +31,6 @@ class SearchViewModel @Inject constructor(
 
     private var query: String = ""
 
-
-    fun selectItem(userName: String) {
-        viewModelScope.launch {
-            flow {
-                repository.selectItem(userName)
-                emit(Unit)
-            }.flowOn(Dispatchers.IO)
-                .collect {
-                    stateData.value = SearchUiState.ItemSelected
-                }
-        }
-    }
-
     fun startSearch(query: String) {
         this.query = query
         startSearch()
@@ -66,6 +55,7 @@ class SearchViewModel @Inject constructor(
                             ex.printStackTrace()
                             stateData.value = SearchUiState.Error(ErrorState.ERROR_LOADING)
                         }
+                        .cachedIn(viewModelScope)
                         .collect { pagingData ->
                             stateData.value = SearchUiState.Success(flowOf(pagingData))
                         }

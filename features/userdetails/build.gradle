@@ -31,6 +31,6 @@ dependencies {
     implementation diLibs.hilt
     implementation uiLibs.values()
     implementation coreLibs.values()
-    implementation uiLibs.values()
+    implementation imageLoader.values()
     implementation navigation.values()
 }

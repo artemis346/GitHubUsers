@@ -1,14 +1,14 @@
-package com.github.users.repository.userdetails.dto
+package com.github.users.userdetails.dto
 
 import java.util.*
 
-data class UserDetailsDto(
+class UserDetailItem(
     val id: Long,
     val login: String,
-    val email: String?,
+    val avatarUrl: String,
     val name: String?,
     val location: String?,
-    val avatarUrl: String,
+    val email: String?,
     val publicRepos: Int,
     val followers: Int,
     val following: Int,

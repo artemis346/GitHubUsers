@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="followers">followers: %s</string>
+    <string name="following">following: %s</string>
+    <string name="repositories">Repositories:</string>
+</resources>

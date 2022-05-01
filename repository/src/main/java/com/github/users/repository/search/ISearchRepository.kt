@@ -7,6 +7,4 @@ import kotlinx.coroutines.flow.Flow
 interface ISearchRepository {
 
     fun getUsersByQuery(query: String): Flow<PagingData<SearchItemDto>>
-
-    fun selectItem(repId: String)
 }

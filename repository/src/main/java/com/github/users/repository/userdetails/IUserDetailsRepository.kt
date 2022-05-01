@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IUserDetailsRepository {
 
-    fun getSelectedUserDetails() : Flow<UserDetailsDto>
+    fun getSelectedUserDetails(userId: String?) : Flow<UserDetailsDto>
 }
