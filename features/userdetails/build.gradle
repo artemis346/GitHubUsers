@@ -24,6 +24,7 @@ dependencies {
     implementation project(path: ':repository')
     implementation project(path: ':uikit')
     implementation project(path: ':navigation')
+    implementation project(path: ':utils')
 }
 
 dependencies {
@@ -33,4 +34,5 @@ dependencies {
     implementation coreLibs.values()
     implementation imageLoader.values()
     implementation navigation.values()
+    testImplementation test.values()
 }

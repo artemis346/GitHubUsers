@@ -2,10 +2,10 @@ package com.github.users.userdetails.dto
 
 import java.util.*
 
-class UserDetailItem(
+data class UserDetailItem(
     val id: Long,
     val login: String,
-    val avatarUrl: String,
+    val avatarUrl: String?,
     val name: String?,
     val location: String?,
     val email: String?,

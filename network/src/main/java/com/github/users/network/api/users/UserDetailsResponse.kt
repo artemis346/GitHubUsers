@@ -20,7 +20,7 @@ data class UserDetailsResponse(
     val location: String?,
 
     @SerializedName("avatar_url")
-    val avatarUrl: String,
+    val avatarUrl: String?,
 
     @SerializedName("public_repos")
     val publicRepos: Int,
@@ -35,5 +35,5 @@ data class UserDetailsResponse(
     val companyName: String?,
 
     @SerializedName("created_at")
-    val createAt: String
+    val createAt: String?
 )

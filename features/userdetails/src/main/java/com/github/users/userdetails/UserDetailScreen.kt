@@ -103,7 +103,7 @@ private fun UserCard(user: UserDetailItem) {
 }
 
 @Composable
-fun HeaderRow(login: String, name: String?, image: String) {
+fun HeaderRow(login: String, name: String?, image: String?) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()

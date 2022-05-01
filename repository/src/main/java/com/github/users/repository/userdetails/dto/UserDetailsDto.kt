@@ -8,7 +8,7 @@ data class UserDetailsDto(
     val email: String?,
     val name: String?,
     val location: String?,
-    val avatarUrl: String,
+    val avatarUrl: String?,
     val publicRepos: Int,
     val followers: Int,
     val following: Int,
