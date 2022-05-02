@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Scaffold
 import androidx.navigation.compose.rememberNavController
+import com.github.users.navigation.NavigationComponent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +16,7 @@ class MainHostActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             Scaffold {
-                NavigationComponent(navController)
+                NavigationComponent(this, navController)
             }
         }
     }

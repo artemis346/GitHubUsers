@@ -34,7 +34,7 @@ import com.github.users.userdetails.viewmodel.UserDetailsViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun UserDetailScreen(navController: NavHostController, userId: String?) {
+internal fun UserDetailScreen(navController: NavHostController, userId: String?) {
     val vm: UserDetailsViewModel = hiltViewModel()
     Scaffold(
         backgroundColor = colorResource(id = R.color.white),
@@ -44,7 +44,7 @@ fun UserDetailScreen(navController: NavHostController, userId: String?) {
 }
 
 @Composable
-fun ScreenHeader(navController: NavHostController) {
+internal fun ScreenHeader(navController: NavHostController) {
     TopAppBar(
         title = { },
         navigationIcon = {
@@ -61,7 +61,7 @@ fun ScreenHeader(navController: NavHostController) {
 }
 
 @Composable
-fun ScreenContent(vm: UserDetailsViewModel, userId: String?) {
+internal fun ScreenContent(vm: UserDetailsViewModel, userId: String?) {
     LaunchedEffect(Unit) {
         vm.fetchUserDetails(userId)
     }
@@ -81,7 +81,7 @@ fun ScreenContent(vm: UserDetailsViewModel, userId: String?) {
 }
 
 @Composable
-private fun UserCard(user: UserDetailItem) {
+internal fun UserCard(user: UserDetailItem) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -103,7 +103,7 @@ private fun UserCard(user: UserDetailItem) {
 }
 
 @Composable
-fun HeaderRow(login: String, name: String?, image: String?) {
+internal fun HeaderRow(login: String, name: String?, image: String?) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -139,7 +139,7 @@ fun HeaderRow(login: String, name: String?, image: String?) {
 }
 
 @Composable
-fun LocationRow(location: String) {
+internal fun LocationRow(location: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -164,7 +164,7 @@ fun LocationRow(location: String) {
 }
 
 @Composable
-fun CompanyRow(company: String) {
+internal fun CompanyRow(company: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -189,7 +189,7 @@ fun CompanyRow(company: String) {
 }
 
 @Composable
-fun EmailRow(email: String) {
+internal fun EmailRow(email: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -214,7 +214,7 @@ fun EmailRow(email: String) {
 }
 
 @Composable
-fun FollowersRow(followers: Int, following: Int) {
+internal fun FollowersRow(followers: Int, following: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -254,7 +254,7 @@ fun FollowersRow(followers: Int, following: Int) {
 }
 
 @Composable
-fun RepositoryRow(publicRepos: Int) {
+internal fun RepositoryRow(publicRepos: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -289,7 +289,7 @@ fun RepositoryRow(publicRepos: Int) {
     }
 }
 
-private fun decoupledConstraints(): ConstraintSet {
+internal fun decoupledConstraints(): ConstraintSet {
     return ConstraintSet {
         val image = createRefFor(LayoutIds.imageAvatar)
         val title = createRefFor(LayoutIds.textUserLogin)

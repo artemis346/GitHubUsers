@@ -25,6 +25,7 @@ dependencies {
     implementation project(path: ':uikit')
     implementation project(path: ':navigation')
     implementation project(path: ':utils')
+    implementation project(path: ':features:userdetails-api')
 }
 
 dependencies {

@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.github.users.navigation.Screen
 import com.github.users.searchusers.dto.UserItem
 import com.github.users.searchusers.viewmodel.SearchUiState
 import com.github.users.searchusers.viewmodel.SearchViewModel
@@ -103,7 +104,7 @@ fun ScreenList(
                             image = user.avatarUrl,
                             subTitle = stringResource(id = R.string.search_score, user.score),
                             onClick = {
-                                navController.navigate("details/${user.userName}")
+                                navController.navigate(Screen.UserDetails.createRoute(user.userName))
                             })
                     }
                 }

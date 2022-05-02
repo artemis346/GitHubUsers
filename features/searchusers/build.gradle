@@ -24,6 +24,7 @@ dependencies {
     implementation project(path: ':repository')
     implementation project(path: ':uikit')
     implementation project(path: ':navigation')
+    implementation project(path: ':features:searchusers-api')
 }
 
 dependencies {
