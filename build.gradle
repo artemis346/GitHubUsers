@@ -33,8 +33,6 @@ ext {
             multiDexEnabled true
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-            resValue "string", "MapsKey", "AIzaSyAfy4lLmeq0S9Kz0mi6X7y_l5Ohsrwjs_Q"
         }
 
         compileOptions {

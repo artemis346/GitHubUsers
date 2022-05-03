@@ -6,6 +6,8 @@ plugins {
 }
 android androidConfiguration
 
+def useReleaseKeystore = rootProject.file("release.properties").exists() && rootProject.file("release.jks").exists()
+
 android {
     buildFeatures {
         compose true
@@ -23,6 +25,38 @@ android {
         applicationId "com.github.user"
         versionCode 1
         versionName "1.0"
+    }
+
+    signingConfigs {
+        debug
+        release
+    }
+
+    if (useReleaseKeystore) {
+        project.ext.props = new Properties()
+        props.load(new FileInputStream(rootProject.file('release.properties')))
+        android.signingConfigs.release.storeFile rootProject.file(props.keyStore)
+        android.signingConfigs.release.keyAlias props.keyAlias
+        android.signingConfigs.release.storePassword props.keyStorePassword
+        android.signingConfigs.release.keyPassword props.keyAliasPassword
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            versionNameSuffix "-debug"
+            applicationIdSuffix ".debug"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            if (useReleaseKeystore) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+        }
     }
 }
 
