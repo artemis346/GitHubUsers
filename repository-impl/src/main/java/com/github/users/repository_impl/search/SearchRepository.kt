@@ -17,21 +17,18 @@ class SearchRepository @Inject constructor(
         const val PAGE_SIZE = 30
     }
 
-    private var lastQuery = ""
-
     override fun getUsersByQuery(query: String): Flow<PagingData<SearchItemDto>> {
-        lastQuery = query
-        return startSearch()
+        return startSearch(query)
     }
 
-    private fun startSearch(): Flow<PagingData<SearchItemDto>> {
+    private fun startSearch(query: String): Flow<PagingData<SearchItemDto>> {
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE
             ),
             pagingSourceFactory = {
                 SearchPagingSource(
-                    api = api, query = lastQuery
+                    api = api, query = query
                 )
             }).flow
     }

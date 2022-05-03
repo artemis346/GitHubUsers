@@ -34,7 +34,6 @@ ext {
     //network
     retrofit = '2.9.0'
     gson = '2.9.0'
-    moshiConverter = '2.9.0'
     okHttp = '4.9.3'
     landscapistGlide = '1.5.1'
 

@@ -1,5 +1,6 @@
 package com.github.users.userdetails
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -76,6 +77,9 @@ internal fun ScreenContent(vm: UserDetailsViewModel, userId: String?) {
             ErrorView(stringResource(state.error.message)) {
                 vm.fetchUserDetails(userId)
             }
+        }
+        else -> {
+            Log.v("state", "Initial state")
         }
     }
 }

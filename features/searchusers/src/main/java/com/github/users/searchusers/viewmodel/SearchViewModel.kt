@@ -1,14 +1,11 @@
 package com.github.users.searchusers.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.github.users.repository.search.ISearchRepository
 import com.github.users.searchusers.mapper.mapPagingDomainToItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,7 +17,6 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     companion object {
-        const val SEARCH_DEBOUNCE = 3000L
         const val SEARCH_DELAY = 100L
         const val MIN_QUERY_LENGTH = 1
     }
