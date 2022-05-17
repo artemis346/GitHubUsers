@@ -1,6 +1,7 @@
 package com.github.user.userdetails.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.github.users.domain.details.GetUserDetailsUseCase
 import com.github.users.repository.userdetails.IUserDetailsRepository
 import com.github.users.repository_impl.details.CoroutineTestRule
 import com.github.users.userdetails.viewmodel.ErrorState
@@ -21,7 +22,7 @@ import java.io.IOException
 class UserDetailsViewModelMock {
 
     @Mock
-    lateinit var repository: IUserDetailsRepository
+    lateinit var usecase: GetUserDetailsUseCase
 
     lateinit var viewmodel: UserDetailsViewModel
 
@@ -33,13 +34,13 @@ class UserDetailsViewModelMock {
 
     @Before
     fun setUp() {
-        repository = mock()
-        viewmodel = UserDetailsViewModel(repository = repository)
+        usecase = mock()
+        viewmodel = UserDetailsViewModel(usecase)
     }
 
     @Test
     fun `HAPPY CASE retrieve valid date`() = runBlocking {
-        given(repository.getSelectedUserDetails(any())).willAnswer { flowOf(dtoValid) }
+        given(usecase.getSelectedUser(any())).willAnswer { flowOf(dtoValid) }
         viewmodel.fetchUserDetails("JackWharton")
         val value = viewmodel.uiState.value
         assert(value is UserDetailsUiState.Success)
@@ -49,7 +50,7 @@ class UserDetailsViewModelMock {
 
     @Test
     fun `ERROR CASE retrieve exception`() = runBlocking {
-        given(repository.getSelectedUserDetails(any())).willAnswer { flowOf {throw IOException()} }
+        given(usecase.getSelectedUser(any())).willAnswer { flowOf {throw IOException()} }
         viewmodel.fetchUserDetails("JackWharton")
         val value = viewmodel.uiState.value
         assert(value is UserDetailsUiState.Error)

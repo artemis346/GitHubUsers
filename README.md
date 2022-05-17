@@ -15,7 +15,7 @@ The app consist of two feature screen: Search Screen and Details Screen
 
 Technology stack
 ----------------
-✅ MVVM
+✅ Clean with MVVM
 
 ✅ Coroutines with Flow
 
@@ -43,4 +43,24 @@ Using ***Hilt*** over the Dagger 2 let to easily inject modules in compose scree
 
 With ***Mutlimodule architecture*** and dependency injection based on ***Hilt*** very easy to add new features in the project, and cover all layers with the test. 
 
-All dependencies of the project are standard stack for modern android application, so new developer that would join the project will be able to quickly start creating new feature without additional landing on technological stack. 
+All dependencies of the project are standard stack for modern android application, so new developer that would join the project will be able to quickly start creating new feature without additional landing on technological stack.
+
+Retrofit, GSON was chosen as reliable frameworks to organise network layer.
+
+The "userdetails" feature with related UseCases and Repositories is covered by unit tests just for and example.
+
+Modules structure
+-----------------
+- ```app``` - The main module of application with the instance of App and Main Activity
+- ```domain``` - The module that contains UseCases of the application and other domain entities of the application
+- ```features``` - Package that contains feature modules of the application
+  - ```searchusers``` - Module for features of searching users and showing the result of the search 
+  - ```searchusers-api``` - Module for navigation interface for ```searchusers``` feature
+  - ```userdetails``` - Module for feature of showing the detail information about user
+  - ```userdatails-api``` - Module for navigation interface for ```userdetails``` feature
+- ```navigation``` - Module for base classes to organize navigation in application
+- ```network``` - Module with logic of Network layer
+- ```repository``` - Module with the interfaces of repositories
+- ```repository-impl``` - Module with the implementation of repositories interfaces
+- ```uikit``` - Module for base UI components, styles, colors and string
+- ```utils``` - Module for base utils methods, extensions and classes 

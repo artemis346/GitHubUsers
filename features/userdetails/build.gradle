@@ -26,6 +26,7 @@ dependencies {
     implementation project(path: ':navigation')
     implementation project(path: ':utils')
     implementation project(path: ':features:userdetails-api')
+    implementation project(path: ':domain')
 }
 
 dependencies {

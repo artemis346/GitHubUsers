@@ -28,8 +28,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 @Composable
-fun SearchScreen(navController: NavHostController) {
-    val vm: SearchViewModel = hiltViewModel()
+fun SearchScreen(navController: NavHostController, vm: SearchViewModel = hiltViewModel()) {
     Scaffold(
         backgroundColor = colorResource(id = R.color.white),
         topBar = { ScreenHeader(vm = vm) },

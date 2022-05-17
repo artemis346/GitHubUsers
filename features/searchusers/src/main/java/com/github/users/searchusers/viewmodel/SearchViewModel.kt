@@ -2,8 +2,7 @@ package com.github.users.searchusers.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
-import com.github.users.repository.search.ISearchRepository
+import com.github.users.domain.search_users.FindUsersUseCase
 import com.github.users.searchusers.mapper.mapPagingDomainToItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -13,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val repository: ISearchRepository
+    private val findUserUseCase: FindUsersUseCase
 ) : ViewModel() {
 
     companion object {
@@ -38,23 +37,23 @@ class SearchViewModel @Inject constructor(
                 .dropWhile {
                     it.length < MIN_QUERY_LENGTH
                 }
-                .collect { query ->
-                    repository.getUsersByQuery(query)
-                        .onStart {
-                            stateData.value = SearchUiState.Loading
-                            delay(SEARCH_DELAY * 2)
-                        }
-                        .map { list ->
-                            list.mapPagingDomainToItem()
-                        }
-                        .catch { ex ->
-                            ex.printStackTrace()
-                            stateData.value = SearchUiState.Error(ErrorState.ERROR_LOADING)
-                        }
-                        .cachedIn(viewModelScope)
-                        .collect { pagingData ->
-                            stateData.value = SearchUiState.Success(flowOf(pagingData))
-                        }
+                .map {
+                    stateData.value = SearchUiState.Loading
+                    delay(SEARCH_DELAY * 2)
+                    it
+                }
+                .flatMapConcat {
+                    findUserUseCase.findUsersByQuery(query = it)
+                }
+                .map { list ->
+                    list.mapPagingDomainToItem()
+                }
+                .catch { ex ->
+                    ex.printStackTrace()
+                    stateData.value = SearchUiState.Error(ErrorState.ERROR_LOADING)
+                }
+                .collect { pagingData ->
+                    stateData.value = SearchUiState.Success(flowOf(pagingData))
                 }
         }
     }
