@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.users.uikit.R
 
@@ -23,6 +24,7 @@ fun ErrorView(errorMessage: String, performOnClick: () -> Unit) {
             modifier = Modifier
                 .padding(0.dp, 40.dp),
             color = colorResource(R.color.black),
+            textAlign = TextAlign.Center
         )
         Button(onClick = performOnClick) {
             Text(text = stringResource(id = R.string.error_view_button))

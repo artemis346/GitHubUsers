@@ -11,6 +11,7 @@ dependencies {
     implementation project(path: ':network')
     implementation project(path: ':repository')
     implementation project(path: ':utils')
+    implementation project(path: ':database')
 }
 
 dependencies {

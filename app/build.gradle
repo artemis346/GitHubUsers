@@ -66,10 +66,10 @@ dependencies {
     implementation project(path: ':repository-impl')
     implementation project(path: ':uikit')
     implementation project(path: ':navigation')
-    implementation project(path: ':features:searchusers')
     implementation project(path: ':features:userdetails')
-    implementation project(path: ':features:searchusers-api')
+    implementation project(path: ':features:userslist')
     implementation project(path: ':features:userdetails-api')
+    implementation project(path: ':features:userlist-api')
 }
 
 dependencies {

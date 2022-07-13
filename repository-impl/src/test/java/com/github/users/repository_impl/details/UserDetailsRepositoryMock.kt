@@ -1,6 +1,6 @@
 package com.github.users.repository_impl.details
 
-import com.github.users.network.api.users.UserApi
+import com.github.users.network.api.user.UserApi
 import com.github.users.repository.userdetails.IUserDetailsRepository
 import com.github.users.repository_impl.*
 import com.github.users.repository_impl.userdetails.UserDetailsRepository

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_list_score">score: %s</string>
+    <string name="user_list_reload_user_list">Try to load list of GitHub users\'s again</string>
+    <string name="user_list_screen_title">GitHub Users</string>
+    <string name="error_content_empty_favorite_list">You haven\'t users in favorite list\nAdd new user from details screen</string>
+</resources>

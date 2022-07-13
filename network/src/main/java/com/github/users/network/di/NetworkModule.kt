@@ -1,8 +1,8 @@
 package com.github.users.network.di
 
 import com.github.users.network.BuildConfig.DEBUG
-import com.github.users.network.api.search.SearchApi
-import com.github.users.network.api.users.UserApi
+import com.github.users.network.api.user.UserApi
+import com.github.users.network.api.userList.UserListApi
 import com.github.users.network.interceptors.HeadersInterceptor
 import dagger.Module
 import dagger.Provides
@@ -67,7 +67,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideSearchApi(retrofit: Retrofit): SearchApi {
-        return retrofit.create(SearchApi::class.java)
+    fun provideUserListApi(retrofit: Retrofit) : UserListApi {
+        return retrofit.create(UserListApi::class.java)
     }
 }

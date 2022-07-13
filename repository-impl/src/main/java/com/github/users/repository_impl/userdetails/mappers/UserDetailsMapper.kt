@@ -1,6 +1,6 @@
 package com.github.users.repository_impl.userdetails.mappers
 
-import com.github.users.network.api.users.UserDetailsResponse
+import com.github.users.network.api.user.UserDetailsResponse
 import com.github.users.repository.userdetails.dto.UserDetailsDto
 import com.github.users.utils.date.serverDateFormat
 import java.lang.Exception

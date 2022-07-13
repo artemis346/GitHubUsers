@@ -37,6 +37,9 @@ ext {
     okHttp = '4.9.3'
     landscapistGlide = '1.5.1'
 
+    //Database
+    roomVersion = "2.4.2"
+
     //Tests
     mockitoKotlin = '2.2.0'
     mockitoVersion = '4.0.0'
@@ -51,7 +54,7 @@ ext {
     ]
 
     viewModel = [
-            lifecycleViewModel       : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycleVersion}",
+            lifecycleViewModel       : "androidx.lifecycle:lifecycle-com.github.users.list.viewmodel-ktx:${lifecycleVersion}",
             lifecycleRuntime       : "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleVersion}"
     ]
 
@@ -104,5 +107,14 @@ ext {
     paging = [
             pagingRuntime     : "androidx.paging:paging-runtime:${paging}",
             paging            : "androidx.paging:paging-compose:${composePaging}"
+    ]
+
+    database = [
+            roomRuntime      : "androidx.room:room-runtime:${roomVersion}",
+            roomKtx          : "androidx.room:room-ktx:${roomVersion}"
+    ]
+
+    databaseProccessor = [
+            roomCompile            : "androidx.room:room-compiler:${roomVersion}"
     ]
 }

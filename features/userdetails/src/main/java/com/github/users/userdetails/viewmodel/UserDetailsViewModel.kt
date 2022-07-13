@@ -3,6 +3,7 @@ package com.github.users.userdetails.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.users.domain.details.GetUserDetailsUseCase
+import com.github.users.domain.setFavoriteUser.SetFavoriteUserUseCase
 import com.github.users.repository.userdetails.IUserDetailsRepository
 import com.github.users.userdetails.mapper.mapToItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserDetailsViewModel @Inject constructor(
-    private val getUserDetails: GetUserDetailsUseCase
+    private val getUserDetails: GetUserDetailsUseCase,
+    private val setUserFavoriteUserUseCase: SetFavoriteUserUseCase
 ) : ViewModel() {
 
     private val stateData =
@@ -37,6 +39,12 @@ class UserDetailsViewModel @Inject constructor(
                 .collect { details ->
                     stateData.value = UserDetailsUiState.Success(details)
                 }
+        }
+    }
+
+    fun setUserInFavorite(isChecked: Boolean) {
+        viewModelScope.launch(Dispatchers.Default) {
+            setUserFavoriteUserUseCase.setFavoriteUser(isChecked)
         }
     }
 }

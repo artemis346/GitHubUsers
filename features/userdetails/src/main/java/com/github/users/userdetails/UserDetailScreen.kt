@@ -1,16 +1,22 @@
 package com.github.users.userdetails
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -68,7 +74,7 @@ internal fun ScreenContent(vm: UserDetailsViewModel, userId: String?) {
     }
     when (val state = vm.uiState.collectAsState().value) {
         is UserDetailsUiState.Success -> {
-            UserCard(state.item)
+            UserCard(state.item, vm)
         }
         is UserDetailsUiState.Loading -> {
             DetailsShimmer()
@@ -85,13 +91,19 @@ internal fun ScreenContent(vm: UserDetailsViewModel, userId: String?) {
 }
 
 @Composable
-internal fun UserCard(user: UserDetailItem) {
+internal fun UserCard(user: UserDetailItem, vm: UserDetailsViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        HeaderRow(login = user.login, name = user.name, image = user.avatarUrl)
+        HeaderRow(
+            login = user.login,
+            name = user.name,
+            image = user.avatarUrl,
+            user.isInFavorite,
+            vm
+        )
         user.location?.let {
             LocationRow(location = it)
         }
@@ -107,7 +119,13 @@ internal fun UserCard(user: UserDetailItem) {
 }
 
 @Composable
-internal fun HeaderRow(login: String, name: String?, image: String?) {
+internal fun HeaderRow(
+    login: String,
+    name: String?,
+    image: String?,
+    isInFavorite: Boolean,
+    vm: UserDetailsViewModel
+) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -137,6 +155,55 @@ internal fun HeaderRow(login: String, name: String?, image: String?) {
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.layoutId(LayoutIds.textUserName),
                 color = colorResource(com.github.users.uikit.R.color.black),
+            )
+        }
+
+        val checked = remember { mutableStateOf(isInFavorite) }
+        FavoriteButton(checked) {
+            vm.setUserInFavorite(it)
+            checked.value = it
+        }
+    }
+}
+
+@Composable
+internal fun FavoriteButton(
+    currentChecked: MutableState<Boolean>,
+    onCheckable: (checked: Boolean) -> Unit
+) {
+    OutlinedButton(
+        onClick = {
+            onCheckable(!currentChecked.value)
+        },
+        modifier = Modifier
+            .layoutId(LayoutIds.buttonIsInFavorite)
+            .wrapContentWidth()
+            .wrapContentHeight(),
+        border = BorderStroke(1.dp, colorResource(id = com.github.users.uikit.R.color.purple_500))
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+        ) {
+            Icon(
+                imageVector = if (currentChecked.value) {
+                    Icons.Filled.Star
+                } else {
+                    Icons.Filled.Add
+                },
+                contentDescription = "Favorite filter",
+                tint = colorResource(com.github.users.uikit.R.color.purple_500)
+            )
+            Text(
+                modifier = Modifier
+                    .layoutId("buttonContent")
+                    .padding(horizontal = 16.dp, vertical = 0.dp),
+                color = colorResource(com.github.users.uikit.R.color.purple_500),
+                text = if (currentChecked.value) {
+                    stringResource(id = R.string.remove_from_favorite)
+                } else {
+                    stringResource(id = R.string.add_to_favorite)
+                }
             )
         }
     }
@@ -298,10 +365,17 @@ internal fun decoupledConstraints(): ConstraintSet {
         val image = createRefFor(LayoutIds.imageAvatar)
         val title = createRefFor(LayoutIds.textUserLogin)
         val name = createRefFor(LayoutIds.textUserName)
+        val isInFavorite = createRefFor(LayoutIds.buttonIsInFavorite)
 
         constrain(image) {
             visibility
-            linkTo(parent.top, parent.bottom, topMargin = 16.dp, bottomMargin = 16.dp, bias = 0f)
+            linkTo(
+                parent.top,
+                parent.bottom,
+                topMargin = 16.dp,
+                bottomMargin = 16.dp,
+                bias = 0f
+            )
             start.linkTo(parent.start, 16.dp)
         }
         constrain(title) {
@@ -312,6 +386,10 @@ internal fun decoupledConstraints(): ConstraintSet {
             top.linkTo(title.bottom, 8.dp)
             linkTo(image.end, parent.end, startMargin = 16.dp, endMargin = 8.dp, bias = 0f)
         }
+        constrain(isInFavorite) {
+            linkTo(name.bottom, parent.bottom, topMargin = 16.dp, bottomMargin = 16.dp)
+            linkTo(image.end, parent.end, startMargin = 16.dp, endMargin = 8.dp, bias = 0f)
+        }
     }
 }
 
@@ -319,5 +397,6 @@ internal object LayoutIds {
     const val imageAvatar: String = "avatarImage"
     const val textUserLogin: String = "textUserLogin"
     const val textUserName: String = "textUserName"
+    const val buttonIsInFavorite: String = "buttonIsInFavorite"
 }
 

@@ -13,5 +13,6 @@ data class UserDetailItem(
     val followers: Int,
     val following: Int,
     val companyName: String?,
-    val createAt: Date? = null
+    val createAt: Date? = null,
+    val isInFavorite: Boolean
 )

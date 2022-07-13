@@ -8,10 +8,6 @@ plugins {
 android androidConfiguration
 
 dependencies {
-    implementation project(path: ':network')
-}
-
-dependencies {
     kapt diLibs.hiltCompiler
     implementation diLibs.hilt
     implementation coreLibs.ktxCore

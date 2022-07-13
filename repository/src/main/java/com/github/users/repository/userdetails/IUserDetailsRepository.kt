@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface IUserDetailsRepository {
 
     fun getSelectedUserDetails(userId: String?) : Flow<UserDetailsDto>
+
+    suspend fun updateUserInFavorite(isInFavorite: Boolean)
 }

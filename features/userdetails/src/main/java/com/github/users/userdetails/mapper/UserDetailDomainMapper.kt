@@ -15,6 +15,7 @@ fun UserDetailsDto.mapToItem() : UserDetailItem {
         followers = followers,
         following = following,
         companyName = companyName,
-        createAt = createAt
+        createAt = createAt,
+        isInFavorite = isUserInFavorite
     )
 }

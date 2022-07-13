@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="search_placeholder">Search GitHub users</string>
-    <string name="search_score">score: %s</string>
-    <string name="start_new_search">Start new GitHub users\'s search</string>
-</resources>

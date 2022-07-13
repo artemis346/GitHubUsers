@@ -12,15 +12,15 @@ fun NavigationComponent(activity: Activity, navController: NavHostController) {
     val depend = EntryPointAccessors.fromActivity(activity, FeatureApiDependencies::class.java)
     NavHost(
         navController = navController,
-        startDestination = depend.provideSearchUsersFeatureApi().screen.route,
-        ) {
+        startDestination = depend.provideUserListFeatureApi().screen.route,
+    ) {
         register(
-            depend.provideSearchUsersFeatureApi(),
+            depend.provideUserDetailsFeatureApi(),
             navController = navController
         )
 
         register(
-            depend.provideUserDetailsFeatureApi(),
+            depend.provideUserListFeatureApi(),
             navController = navController
         )
     }
